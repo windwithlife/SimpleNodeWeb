@@ -1,0 +1,115 @@
+
+.ant-picker-now{
+    display: none !important;
+}
+
+@import "../minix.less";
+
+.add_advertise_con{
+    padding: 28px 40px 0px 40px;
+    .artical_module_con{
+        .title_desc{
+            color: #000;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .wrapperClassName{
+            .toolbarClassName{
+                border: 1px solid grey;
+            }
+            .editorClassName{
+                padding: 6px;
+                height: 200px;
+                border: 1px solid grey;
+            }
+        }
+    }
+    .time_module_con{
+        display: flex;
+        margin: 20px 0px;
+    }
+    .add_advertise_wrap{
+        margin-top: 28px;
+        background-color: #fff;
+        padding: 20px 30px;
+        .base_info_con_right_small_con{
+            display: flex;
+            margin-bottom: 20px;
+            .base_info_con_right_first{
+                width: 72px;
+                font-size: 14px;
+                text-align: center;
+            }
+            .base_info_con_right_second{
+                width: 100%;
+                margin-left: 20px;
+                .ant-input{
+                    width: 70%;
+                    height: 24px;
+                }
+            }
+        }
+    }
+    h1{
+        margin: 20px 0px;
+    }
+    // .ant-input{
+    //     width: 50vw !important;
+    //     height: 48px !important;
+    // }
+    .save{
+        margin-top: 20px;
+        display: inline-block;
+        .save_btn{
+            padding: 4px 28px;
+            background: @base_color_blue;
+            color: #fff;
+            display: inline-block;
+        }
+    }
+    .picture_con{
+        display: flex;
+        align-items: flex-end;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid @base_color_grey;
+        .picture_con_left{
+            width: 260px;
+            height: 180px;
+        }
+        .picture_con_right{
+            position: relative;
+            margin-left: 30px;
+            height: 180px;
+            flex-grow: 1;
+            input{
+                position: absolute;
+                left: 0px;
+                z-index: 0;
+                width: 84px;
+                height: 30px;
+                border-radius: 13px;
+                bottom: 0px;
+            }
+            .uploadBtn{
+                pointer-events: visible !important;
+                background-color: @base_color_blue !important;
+                bottom: 42px !important;
+            }
+            .previewBtn{
+                color: #fff;
+                padding: 4px 28px;
+                border-radius: 13px;
+                text-align: center;
+                font-size: 14px;
+                pointer-events: none;
+                position: absolute;
+                z-index: 1;
+                left: 0px;
+                bottom: 0px;
+                background-color: @base_color_orange;
+            }
+        }
+    }
+
+}
