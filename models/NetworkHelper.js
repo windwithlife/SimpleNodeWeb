@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Form, Input, Button, Checkbox, Modal } from 'antd';
 import config from "../config/config";
-import { doHref, Loading } from "../utils/PageHelper";
+import { Loading } from "../utils/PageHelper";
 //import model from "./modelBase";
 
 const isServer = typeof window == 'undefined';
@@ -202,9 +202,9 @@ export class Network {
 
 
 
-// export function doHref(path=''){
-//     location.href = `${location.origin}${baseUrl}/${path}` //首页登录成功处理
-// }
+export function doHref(path=''){
+    location.href = `${location.origin}${baseUrl}/${path}` //首页登录成功处理
+}
 
 
 // export const Loading = {

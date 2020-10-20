@@ -9,6 +9,12 @@ var bodyParser = require('body-parser');
 const rewrite = require('express-urlrewrite');
 var config = require('./config/config');
 const baseUrl = config.RESOURCE_PATH;
+const Sentry = require("@sentry/node");
+const {dsn} = require('./app.config.json');
+const logger = require("./tool_server/logger")(__filename);
+const {getIPAddress} = require("./tool_server/tools");
+logger.info('process.env.NODE_ENV : ', process.env.NODE_ENV);
+Sentry.init({ dsn });
 
 // var uploadRootPath = config['current'].UPLOAD_PATH;
 // console.log("current upload root path"  + uploadRootPath);
@@ -102,59 +108,27 @@ const baseUrl = config.RESOURCE_PATH;
 
 app.prepare()
   .then(() => {
-    const server = express()
-    server.use(bodyParser.urlencoded({ extended: true }));
-    server.use(bodyParser.json());
-    //server.use('/images',express.static(uploadRootPath));
-    //server.use(rewrite(/^\/coder\/?(.*)/,'/$1'));
-    // server.get('/a', (req, res) => {
-    //   return app.render(req, res, '/b', req.query)
-    // })
-    //server.use(function (req, res, next) {
-      //req.url = req.originalUrl.replace('MedicalLive/_next', '_next');
-      //req.url = req.originalUrl.replace(resPath, '_next');
-      //next(); // be sure to let the next middleware handle the modified request. 
-    //});
+    try{
+      const server = express()
+      server.use(Sentry.Handlers.requestHandler());
+      server.use(bodyParser.urlencoded({ extended: true }));
+      server.use(bodyParser.json());
 
-    // server.post('/profile', fileupload.single('avatar'), function (req, res, next) {
-    //   // req.file is the `avatar` file
-    //   // req.body will hold the text fields, if there were any
-    //   console.log('[upload filename:' + JSON.stringify(req.file) + "]");
-    //   res.json({
-    //     code: true,
-    //     filename: req.file.filename,
-    //     path: "/images/" + req.file.filename,//req.file.path,
-    //     msg: '上传成功'
-    //   });
-    // });
-
-    server.get('/testsignup', (req, res) => {
-      console.log(req.body);
-      res.sendStatus(200)
-    });
-
-    server.get('/test', (req, res) => {
-      console.log(req.body);
-      res.sendStatus(200)
-    });
-    
-
-    server.get('/posts/:id', (req, res) => {
-      console.log('poes');
-      return app.render(req, res, '/posts', { id: req.params.id })
-    })
-
-    server.get('*', (req, res) => {
-      return handle(req, res)
-    })
-
-    server.get(`*`, (req, res) => {
-      if(req.path == baseUrl)  res.redirect(301, `${baseUrl}/index`);
-      return handle(req, res)
-    })
-
-    server.listen(port, (err) => {
-      if (err) throw err
-      console.log(`> Ready on http://localhost:${port}`)
-    })
+      server.get(`*`, (req, res) => {
+        if(req.path == baseUrl)  res.redirect(301, `${baseUrl}/index`);
+        return handle(req, res)
+      })
+      // ? The error handler must be before any other error middleware and after all controllers
+      server.use(Sentry.Handlers.errorHandler());
+  
+      const LOCAL_IP = getIPAddress();
+      server.listen(port, (err) => {
+        if (err) throw err
+        logger.info(`> Ready on http://${LOCAL_IP}:${port}${baseUrl}`);
+      })
+    }
+    catch(error){
+      logger.error('error:服务器点火失败 ', error);
+      Sentry.captureException(error);
+    }
   })
