@@ -18,6 +18,7 @@ export default class AddPage extends React.Component {
         super(props);
         this.state = {};
     }
+    
 
     onFinish = values => {
         var that = this;
@@ -40,7 +41,7 @@ export default class AddPage extends React.Component {
         var that = this;
 
         return (
-    
+            <div>
             <Card id="xxx">
                 <Form ref={this.formRef} name="control-ref" onFinish={this.onFinish.bind(that)}>
    
@@ -60,6 +61,20 @@ export default class AddPage extends React.Component {
                     </Card>
                 </Form>
             </Card>
+            <Button type="primary" htmlType="submit" size="large" onClick={() => {
+                import('next-dynamic-antd-theme').then(changeTheme => {
+                    // module 就是模块里面导出的对象
+                    changeTheme.default({ '@primary-color': '#ff0000' });
+                })
+                  
+                }}>主题红</Button>
+            <Button type="primary" htmlType="submit" size="large" onClick={() => {
+                    import('next-dynamic-antd-theme').then(changeTheme => {
+                        // module 就是模块里面导出的对象
+                        changeTheme.default({ '@primary-color': '#000000' });
+                    })
+                }}>主题黑</Button>
+            </div>
         );
     }
 }
