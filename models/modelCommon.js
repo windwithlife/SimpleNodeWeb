@@ -3,7 +3,7 @@
 var axios = require('axios');
 var config = require('../config/config');
 var serverPath = config.SOA_GATE;
-console.log(" current env:========" + serverPath);
+
 
 
 
