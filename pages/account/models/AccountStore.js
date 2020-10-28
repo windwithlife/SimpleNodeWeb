@@ -1,6 +1,7 @@
 import { observable, action, computed,toJS,runInAction } from "mobx";
 import BaseStore from '../../../models/BaseStore';
 import authStore from '../../../models/AuthStore';
+import { Network } from '../../../models/NetworkHelper'
 
 let  DataItem = {
     
@@ -18,6 +19,8 @@ export default class ProjectStore extends BaseStore {
     constructor() {
         super('/account/');
         this.dataObject = Data;
+        let a = new Network
+        console.log(Network)
     }
    
     @action.bound
@@ -38,7 +41,7 @@ export default class ProjectStore extends BaseStore {
     @action.bound
     login(values,callback){
         let that = this;
-        this.model.postRaw("/v1/account/login",values,function (response) {
+        Network.fetch_post("/mobile/exampleService/test1",values,function (response) {
             if (response && response.data) {
                 console.log(response.data);
                 that.dataObject.list= response.data.items;

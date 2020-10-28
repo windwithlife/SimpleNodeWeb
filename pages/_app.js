@@ -1,8 +1,7 @@
-import App, {Container} from 'next/app'
+import App from 'next/app'
 import React from 'react'
-import { initializeStore } from '../models/index';
 import { Provider } from 'mobx-react'
-import Layout from './common/pages/layout.js'
+import Layout from './common/layout'
 import * as Sentry from '@sentry/node'
 import {dsn} from "../app.config.json";
 import Head from 'next/head'
@@ -20,9 +19,6 @@ if(isProd){
 class MyMobxApp extends App {
     static async getInitialProps(appContext) {
         try{
-            const mobxStore = initializeStore()
-            appContext.ctx.mobxStore = mobxStore
-    
             let appProps = await App.getInitialProps(appContext)
     
             return {
@@ -37,11 +33,6 @@ class MyMobxApp extends App {
 
     constructor(props) {
         super(props)
-        if (props._STORENAME){
-           this.mobxStore = initializeStore(props._STORENAME,_STOREVALUE);
-        }else{
-            this.mobxStore = initializeStore();
-        }
     }
     componentDidMount(){
         window.process = {

@@ -15,7 +15,7 @@ const SENTRY_UAT_KEY = 'https://6d2bfa8c878d4905b2537647032f61c8@sentry.io/10647
 const HTTP_PREFIX = 'http://';
 const HTTPS_PREFIX = 'https://';
 
-const DEVELOPMENT_HOST = 'localhost:8888';
+const DEVELOPMENT_HOST = 'soagateway.koudaibook.com';
 const UAT_HOST = 'uat.gateway.koudaibook.com';
 const PRODUCTION_HOST = 'gateway.koudaibook.com';
 
@@ -111,6 +111,6 @@ module.exports = {
     WEB_GATE: routeToWeb(),
     WEB_RELEASE: routeToWebRelease(),
     RESOURCE_PATH: "/account",
-    PROJECT_NAME: "meeting-live"
+    PROJECT_NAME: "simple/example"
 }
 

@@ -4,7 +4,6 @@ const withLess = require('@zeit/next-less')
 const withSourceMaps = require('@zeit/next-source-maps')
 const lessToJS = require('less-vars-to-js')
 const withPlugins = require('next-compose-plugins');
-// const fs = require('fs')
 const path = require('path')
 const generateTheme = require('next-dynamic-antd-theme/plugin');
 
@@ -13,9 +12,6 @@ const logger = require("./tool_server/logger")(__filename);
 logger.info('process.env.NODE_ENV : ', process.env.NODE_ENV);
 let resourcePath = configfile.RESOURCE_PATH;
 
-// const themeVariables = lessToJS(
-//   fs.readFileSync(path.resolve(__dirname, './assets/antd-custom.less'), 'utf8')
-// )
 const withAntdTheme = generateTheme({
   antDir: path.join(__dirname, './node_modules/antd'),
   stylesDir: path.join(__dirname, './theme'),
@@ -73,16 +69,6 @@ const config = {
     ]
   },
   assetPrefix:  process.env.NODE_ENV === "production" ? resourcePath: "" ,
-
-  // cssModules:false,
-  // cssLoaderOptions:{
-  //       importLoaders: 1,
-  //       minimize:true,
-  //     },
-  // lessLoaderOptions: {
-  //   javascriptEnabled: true,
-  //   modifyVars: themeVariables, // make your antd custom effective
-  // },
   webpack: (config, { isServer,buildId }) => {
     logger.info('buildId: ', buildId);
     if (isServer) {
