@@ -1,13 +1,16 @@
 import React from 'react';
+import authStore from '../../models/AuthStore';
 
 export default class RootPage extends React.Component {
     constructor(props) {
         super(props);
         this.renderPage = this.renderPage.bind(this);
+        this.authStore = authStore;
     }
 
     componentDidMount() {
-        console.log(111111)
+        console.log(111111);
+        console.log('root', authStore.saveAuthInfo)
     }
 
     componentDidUpdate() {

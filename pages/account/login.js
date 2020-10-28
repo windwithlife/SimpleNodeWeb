@@ -22,6 +22,7 @@ export default class AddPage extends RootPage {
 
     componentDidMount() {
         super.componentDidMount && super.componentDidMount();
+        console.log('login', this.authStore.saveAuthInfo)
     }
     
 
