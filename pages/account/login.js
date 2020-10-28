@@ -3,12 +3,13 @@ import { inject, observer } from 'mobx-react';
 import { Form, Card, Input, Button, Select } from 'antd';
 import router from 'next/router';
 import XSelect from '../common/components/select';
+import RootPage from './rootPage';
 const { TextArea } = Input;
 
 
 @inject('accountStore')
 @observer
-export default class AddPage extends React.Component {
+export default class AddPage extends RootPage {
     formRef = React.createRef();
 
     Store = () => {
@@ -17,6 +18,10 @@ export default class AddPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
+    }
+
+    componentDidMount() {
+        super.componentDidMount && super.componentDidMount();
     }
     
 
@@ -37,7 +42,7 @@ export default class AddPage extends React.Component {
         let webImageFilePath = info.file.response.path;
         this.formRef.current.setFieldsValue({fieldName:webImageFilePath});
     }
-    render() {
+    renderPage() {
         var that = this;
 
         return (
