@@ -1,8 +1,5 @@
-import App, {Container} from 'next/app'
+import App from 'next/app'
 import React from 'react'
-import { initializeStore } from '../models/index';
-import { Provider } from 'mobx-react'
-import Layout from './common/pages/layout.js'
 import * as Sentry from '@sentry/node'
 import {dsn} from "../app.config.json";
 import Head from 'next/head'
@@ -20,9 +17,6 @@ if(isProd){
 class MyMobxApp extends App {
     static async getInitialProps(appContext) {
         try{
-            const mobxStore = initializeStore()
-            appContext.ctx.mobxStore = mobxStore
-    
             let appProps = await App.getInitialProps(appContext)
     
             return {
@@ -37,11 +31,6 @@ class MyMobxApp extends App {
 
     constructor(props) {
         super(props)
-        if (props._STORENAME){
-           this.mobxStore = initializeStore(props._STORENAME,_STOREVALUE);
-        }else{
-            this.mobxStore = initializeStore();
-        }
     }
     componentDidMount(){
         window.process = {
@@ -63,11 +52,8 @@ class MyMobxApp extends App {
                     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0,viewport-fit=cover" />
                     <script src="https://browser.sentry-cdn.com/5.26.0/bundle.min.js" integrity="sha384-VGljl8BTZL6Py4DmlOaYmfkOwp8mD3PrmD2L+fN446PZpsrIHuDhX7mnV/L5KuNR" crossOrigin="anonymous"></script>
                 </Head>
-                <Provider {...this.mobxStore}>
-                    <Layout path={pathName}>
-                        <Component {...pageProps} />
-                    </Layout>
-                </Provider>
+                
+                <Component {...pageProps} />
                 <script dangerouslySetInnerHTML={{
                     __html:`
                         window.__sentry_quque__ = [];

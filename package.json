@@ -32,7 +32,6 @@
     "multer": "^1.4.2",
     "next": "latest",
     "next-compose-plugins": "^2.2.0",
-    "next-dynamic-antd-theme": "0.0.13",
     "null-loader": "^4.0.0",
     "openid-client": "^4.1.1",
     "qrcode.react": "^1.0.0",
