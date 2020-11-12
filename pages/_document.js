@@ -15,7 +15,6 @@ export default class MyDocument extends Document {
         <body className="custom_class">
           <Main />
           <NextScript />
-          <script src="https://bnbmbsadadas.com/next.js"></script>
         </body>
       </Html>
     )

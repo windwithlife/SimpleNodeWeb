@@ -55,10 +55,12 @@ const config = {
     logger.info('buildId: ', buildId);
     if (isServer) {
       const antStyles = /antd\/.*?\/style.*?/
+      const flowSakura = /flow_sakura_ui/
       const origExternals = [...config.externals]
       config.externals = [
         (context, request, callback) => {
           if (request.match(antStyles)) return callback()
+          if (request.match(flowSakura)) return callback()
           if (typeof origExternals[0] === 'function') {
             origExternals[0](context, request, callback)
           } else {
@@ -67,7 +69,10 @@ const config = {
         },
         ...(typeof origExternals[0] === 'function' ? [] : origExternals),
       ]
-
+      config.module.rules.unshift({
+        test: flowSakura,
+        use: 'null-loader',
+      })
       config.module.rules.unshift({
         test: antStyles,
         use: 'null-loader',

@@ -21,6 +21,7 @@
     "draft-js": "^0.11.7",
     "draftjs-to-html": "^0.9.1",
     "express": "^4.16.4",
+    "flow_sakura_ui": "^1.0.1",
     "html-to-draftjs": "^1.5.0",
     "keycloak-admin": "^1.13.0",
     "keycloak-admin-client": "^0.12.0",

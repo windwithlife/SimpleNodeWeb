@@ -53,7 +53,7 @@ class MyMobxApp extends App {
                     <script src="https://browser.sentry-cdn.com/5.26.0/bundle.min.js" integrity="sha384-VGljl8BTZL6Py4DmlOaYmfkOwp8mD3PrmD2L+fN446PZpsrIHuDhX7mnV/L5KuNR" crossOrigin="anonymous"></script>
                 </Head>
                 
-                <Component {...pageProps} />
+                <Component {...this.props} />
                 <script dangerouslySetInnerHTML={{
                     __html:`
                         window.__sentry_quque__ = [];
