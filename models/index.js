@@ -2,27 +2,16 @@ import { useStaticRendering } from 'mobx-react';
 //import Store from './Store';
 import AuthStore from "./AuthStore";
 import MenuStore from "./MenuStore";
-import DictionaryStore from "../pages/public/dictionary/models/DictionaryStore";
-import CategoryStore from "../pages/public/category/models/CategoryStore";
 
-import AccountStore from "../pages/account/models/AccountStore";
-
-
-
-
+import AccountStore from "../pages/account/models/AccountModel";
 
 const isServer = typeof window === 'undefined'
 useStaticRendering(isServer)
 
 let stores = {
-    //network:new Store(),
-    categoryStore: new CategoryStore(),
-    dictionaryStore: new DictionaryStore(),
     authStore:AuthStore,
     menuStore: new MenuStore(),
     accountStore: new AccountStore(),
-   
-    
 }   
 
 

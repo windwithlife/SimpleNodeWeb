@@ -1,29 +1,24 @@
 import React from 'react';
-import { inject, observer } from 'mobx-react';
-import { Form, Card, Input, Button, Select } from 'antd';
+import { Form, Card, Input, Button} from 'antd';
 import router from 'next/router';
-import XSelect from '../common/components/select';
-const { TextArea } = Input;
-import Upload from '../common/components/FileUpload';
+import RootPage from './rootPage';
+import AccountModel from './models/AccountModel'
 
-@inject('accountStore')
-@observer
-export default class AddPage extends React.Component {
+
+export default class AddPage extends RootPage {
     formRef = React.createRef();
 
-    Store = () => {
-        return this.props.accountStore;
-    }
+ 
     constructor(props) {
         super(props);
         this.state = {};
+        this.setDefaultModel(new AccountModel());
     }
 
     onFinish = values => {
         var that = this;
         let pathLogin = '/account/login';
-        //console.log(path);
-       
+    
         console.log(values);
         this.Store().register(values, (res) => { 
             console.log('finished register'); 
@@ -34,19 +29,15 @@ export default class AddPage extends React.Component {
     }
 
     
-    render() {
+    renderPage() {
         var that = this;
 
         return (
             <Card>
                 <Form ref={this.formRef} name="control-ref" onFinish={this.onFinish.bind(that)}>
-
-   
-   
-                          < Form.Item name="name" label="用户名：">
+                          < Form.Item name="username" label="用户名：">
                            <Input />
                           </Form.Item>
-
                           < Form.Item name="password" label="密码">
                            <Input />
                           </Form.Item>
@@ -62,7 +53,5 @@ export default class AddPage extends React.Component {
         );
     }
 }
-AddPage.getInitialProps = async function (context) {
-    return { query: context.query };
-}
+
 

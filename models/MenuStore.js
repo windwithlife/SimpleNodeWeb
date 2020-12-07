@@ -1,5 +1,6 @@
-import { observable, action } from "mobx";
-import BaseStore from "./BaseStore";
+
+import BaseModel from "./BaseModel";
+
 
 let composeMenuData= function(parentItem, list){
   list.forEach(function(menuItem){
@@ -13,9 +14,9 @@ let composeMenuData= function(parentItem, list){
 };
 
 
-export default class MenuStore extends BaseStore{
+export default class MenuStore extends BaseModel{
 
-  @observable dataObject= {
+  dataObject= {
     currentItem :{
       id:1,
       name:"oldName",
@@ -25,28 +26,54 @@ export default class MenuStore extends BaseStore{
   },
   channels:{
     "live":"live",
+    "project":"project",
+    "application":"project",
+    "applicationpoint":'project',
+    "xtable":"project",
+    "xmodule":"project",
+    "applicationrelease":'deploy',
+    "applicationtype":'deploy',
+    
+    "dockerimage": 'deploy',
+    "buildrecord":'deploy',
+    "pagetemplate":'component',
+    "xwidget":'component',
     "config":"config",
+    "public":"config",
+    "dictionary":"config",
     'user' :'user',
-    'lecture_setting':'ehealth',
-    'advertise_setting' :'ehealth',
+    'info' :'info',
   },
   list:[ 
    
-    {id:21,name: "资讯管理",url:"/info/home",level:1,type:'sider', parentId:0,channelName:"info"},
+    
    
-    {id:11,name: "直播间管理",url:"/ehealth_web/lecture_setting",level:1,type:'sider', parentId:0,channelName:"ehealth"},
-    {id:12,name: "直播资讯管理",url:"/ehealth_web/advertise_setting",level:1,type:'sider', parentId:0,channelName:"ehealth"},
+    
+
+    {id:11,name: "项目列表",url:"/project/home",level:1,type:'sider', parentId:0,channelName:"project"},
+    {id:12,name: "应用列表",url:"/application/home",level:1,type:'sider', parentId:0,channelName:"project"},
+    {id:2,name: "应用类型管理",url:"/applicationtype/home",level:1,type:'sider', parentId:0,channelName:"project"},
+    {id:23,name: "集群管理",url:"/applicationpoint/home",level:1,type:'sider', parentId:0,channelName:"project"},
+    
+   
+    {id:21,name: "當前應用詳情",url:"/applicationrelease/application-detail",level:1,type:'sider', parentId:0,channelName:"deploy"},
+    {id:22,name: "部署管理",url:"/applicationrelease/deployment-home",level:1,type:'sider', parentId:0,channelName:"deploy"},
   
-
-    {id:5,name: "配置",url:"/public/category/add",level:1,type:'sider', parentId:0,channelName:"config"},
-
-    {id:51,name: "个人基本信息",url:"/user/home",level:1,type:'sider', parentId:0,channelName:"user"},
-    {id:52,name: "密码与权限",url:"/account/home",level:1,type:'sider', parentId:0,channelName:"user"},
-
+    {id:24,name: "构建镜像列表",url:"/dockerimage/home",level:1,type:'sider', parentId:0,channelName:"deploy"},
    
-    {id:103,name: "资讯管理",url:"/news/info_home",level:1,type:'header', parentId:0,channelName:"default"},
-    {id:104,name: "直播管理",url:"/live/liveroom_home",level:1,type:'header', parentId:0,channelName:"default"},
-    {id:105,name: "配置",url:"/public/category/add",level:1,type:'header', parentId:0,channelName:"default"},
+    
+    
+    {id:3,name: "字典表分类配置",url:"/public/category/home",level:1,type:'sider', parentId:0,channelName:"config"},
+    {id:4,name: "字典表维护",url:"/public/dictionary/home",level:1,type:'sider', parentId:0,channelName:"config"},
+    
+
+    {id:51,name: "页面布局组管理",url:"/pagetemplate/home",level:1,type:'sider', parentId:0,channelName:"component"},
+    {id:52,name: "页面区域组件管理",url:"/xwidget/home",level:1,type:'sider', parentId:0,channelName:"component"},
+
+    
+    {id:103,name: "项目应用管理",url:"/application/home",level:1,type:'header', parentId:0,channelName:"default"},
+    {id:104,name: "持续集成",url:"/applicationrelease/application-detail",level:1,type:'header', parentId:0,channelName:"default"},
+    {id:105,name: "配置",url:"/public/dictionary/home",level:1,type:'header', parentId:0,channelName:"default"},
 ],
   };
 
@@ -77,9 +104,11 @@ export default class MenuStore extends BaseStore{
   getChannelByPath(path){
     let channelName = "none";
     let arrayPath = path.split('/');
-    //console.log("path array is --------------:" + arrayPath);
+    console.log("path array is --------------:" + arrayPath);
     let moduleName = arrayPath[1];
+    //console.log(moduleName);
     channelName = this.dataObject.channels[moduleName];
+    //console.log(channelName);
     return channelName;
   }
   findSiderMenuItemsByPath(path){

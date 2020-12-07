@@ -4,18 +4,17 @@ const withLess = require('@zeit/next-less')
 const withSourceMaps = require('@zeit/next-source-maps')
 const lessToJS = require('less-vars-to-js')
 const withPlugins = require('next-compose-plugins');
-// const fs = require('fs')
+
 const path = require('path')
 const generateTheme = require('next-dynamic-antd-theme/plugin');
 
-var configfile = require('./config/config');
+var configfile  = require('./utils/config');
 const logger = require("./tool_server/logger")(__filename);
 logger.info('process.env.NODE_ENV : ', process.env.NODE_ENV);
-let resourcePath = configfile.RESOURCE_PATH;
 
-// const themeVariables = lessToJS(
-//   fs.readFileSync(path.resolve(__dirname, './assets/antd-custom.less'), 'utf8')
-// )
+const BasePath = configfile.application.contextPath;
+
+
 const withAntdTheme = generateTheme({
   antDir: path.join(__dirname, './node_modules/antd'),
   stylesDir: path.join(__dirname, './theme'),
@@ -33,7 +32,7 @@ const plugins = [
       cssLoaderOptions: {
         importLoaders: 1,
         minimize:true,
-        // localIdentName: "[local]___[hash:base64:5]",
+       
       }
     }
   ],
@@ -64,25 +63,18 @@ const plugins = [
 ]
 
 const config = {
+  basePath: BasePath, //process.env.NODE_ENV === "production" ? resourcePath: "" ,
   async rewrites() {
     return [
-      {
-        source: resourcePath + '/_next/:slug*',
-        destination: '/_next/:slug*',
-      },
+      // {
+      //   source: resourcePath + '/_next/:slug*',
+      //   destination: '/_next/:slug*',
+      // },
     ]
   },
-  assetPrefix:  process.env.NODE_ENV === "production" ? resourcePath: "" ,
+  //assetPrefix:  process.env.NODE_ENV === "production" ? resourcePath: "" ,
 
-  // cssModules:false,
-  // cssLoaderOptions:{
-  //       importLoaders: 1,
-  //       minimize:true,
-  //     },
-  // lessLoaderOptions: {
-  //   javascriptEnabled: true,
-  //   modifyVars: themeVariables, // make your antd custom effective
-  // },
+
   webpack: (config, { isServer,buildId }) => {
     logger.info('buildId: ', buildId);
     if (isServer) {

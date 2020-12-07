@@ -4,10 +4,26 @@ import authStore from '../../models/AuthStore';
 export default class RootPage extends React.Component {
     constructor(props) {
         super(props);
-        this.renderPage = this.renderPage.bind(this);
+        if(this.renderPage){
+            this.renderPage = this.renderPage.bind(this);
+        }
+       
         this.authStore = authStore;
+        this.defaultModel = {};
     }
 
+    setDefaultModel(model){
+        if(model){
+            this.defaultModel = model;
+        }
+    }
+    Store=()=>{
+        return this.defaultModel;
+    }
+    params=()=>{
+        const queryParams = this.props.router.query;
+        return queryParams;
+    }
     componentDidMount() {
         console.log(111111);
         console.log('root', authStore.saveAuthInfo)

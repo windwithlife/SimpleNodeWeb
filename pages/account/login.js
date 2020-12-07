@@ -1,11 +1,7 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { Form, Card, Input, Button, Select } from 'antd';
-import router from 'next/router';
-import XSelect from '../common/components/select';
 import RootPage from './rootPage';
-const { TextArea } = Input;
-
 
 @inject('accountStore')
 @observer
