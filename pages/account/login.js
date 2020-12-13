@@ -1,7 +1,7 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { Form, Card, Input, Button, Select } from 'antd';
-import RootPage from './rootPage';
+import RootPage from '../common/pages/rootPage';
 
 @inject('accountStore')
 @observer

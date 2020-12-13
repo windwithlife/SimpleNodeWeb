@@ -1,5 +1,5 @@
 import React from 'react';
-import authStore from '../../models/AuthStore';
+import authStore from '../../../models/AuthStore';
 
 export default class RootPage extends React.Component {
     constructor(props) {

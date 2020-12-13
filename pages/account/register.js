@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Card, Input, Button} from 'antd';
 import router from 'next/router';
-import RootPage from './rootPage';
+import RootPage from '../common/pages/rootPage';
 import AccountModel from './models/AccountModel'
 
 
