@@ -14,7 +14,7 @@ export default class BasePage extends React.Component {
         this.openUrl = this.openUrl.bind(this);
         this.back = this.back.bind(this);
         this.urlQuery = this.urlQuery.bind(this);
-        this.networkHandler = networkHandler;
+        //this.networkHandler = networkHandler;
 
         this.isServer = typeof window == 'undefined';
         this.pageWidth = this.isServer ? 0 : window.innerWidth;
@@ -88,14 +88,13 @@ export default class BasePage extends React.Component {
     }
 
     static getDerivedStateFromError(error) {
-        // 更新 state 使下一次渲染可以显示降级 UI
-        // return { hasError: true };
+      
     }
 
     render() {
         return (
             <div style={{position: 'absolute',top: 0, left: 0, bottom: 0, right: 0, display: 'flex', flexDirection: 'column'}}>
-                <Head></Head>
+                
                 {this.renderPage()}
             </div>
         )
